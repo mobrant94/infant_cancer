@@ -1,0 +1,25 @@
+# Definição dos parâmetros
+n_sens <- presize::prec_sens(sens = 0.85, conf.width = 0.2, conf.level = 0.95, method = 'wald')$n/0.5
+
+n_esp <- presize::prec_spec(spec = 0.7, conf.width = 0.2, conf.level = 0.95, method = 'wald')$n/(1 - 0.5)
+
+
+#https://www.sciencedirect.com/science/article/pii/S1532046414000501#s0030
+
+
+# Definição dos parâmetros
+prevalencia <- 0.03  # 3% de crianças com câncer infantojuvenil na população geral
+margem_erro <- 0.05  # Margem de erro de 5%
+confianca <- 0.95  # Nível de confiança de 95%
+z <- qnorm(1 - (1 - confianca) / 2)  # Valor crítico de Z para 95% de confiança
+
+# Cálculo do número mínimo de casos necessários
+N_casos <- (z^2 * prevalencia * (1 - prevalencia)) / (margem_erro^2)
+N_casos <- ceiling(N_casos)  # Arredondar para cima
+
+# Como a prevalência é de 3%, calcular o total necessário de indivíduos triados
+N_total <- ceiling(N_casos / prevalencia)
+
+# Exibir os resultados
+cat("Número mínimo de casos necessários:", N_casos, "\n")
+cat("Total de indivíduos a serem triados:", N_total, "\n")
